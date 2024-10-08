@@ -639,6 +639,106 @@ class APK:
         :rtype: a list of :class:`str`
         """
         return self.zip.namelist()
+    
+    def get_shell_detect(self):
+        """
+        Returan the app shell detect.
+        :rtype: str
+        """
+        shellfeatures = {
+            "娜迦": [
+                "libddog.so",
+                "libchaosvmp.so",
+                "libddog.so libfdog.so",
+                "libfdog.so"
+            ],
+            "娜迦企业版": [
+                "libedog.so"
+            ],
+            "梆梆": [
+                "libsecexe.so",
+                "libSecShell.so",
+                "libsecmain.so"
+            ],
+            "梆梆企业版": [
+                "libDexHelper.so",
+                "libDexHelper-x86.so"
+            ],
+            "爱加密": [
+                "libexec.so",
+                "ijiami.dat",
+                "libexecmain.so"
+            ],
+            "360": [
+                "libjiagu.so; libjiagu.so",
+                "libjiagu.so",
+                "libjiagu_art.so; libjiagu.so",
+                "libjiagu_x86.so",
+                "libprotectClass.so",
+                "libjiagu_art.so"
+            ],
+            "百度": [
+                "libbaiduprotect.so"
+            ],
+            "阿里聚安全": [
+                "libsgmain.so",
+                "libmobisec.so",
+                "aliprotect.dat",
+                "libsgsecuritybody.so"
+            ],
+            "腾讯": [
+                "libexec.so",
+                "libtup.so",
+                "lib/armeabi/mixz.dex",
+                "libshell.so",
+                "libshell.so; mix.dex; lib/armeabi/mix.dex",
+                "lib/armeabi/mix.dex",
+                "mix.dex"
+            ],
+            "腾讯御安全": [
+                "libtosprotection.armeabi-v7a.so",
+                "libtosprotection.armeabi.so",
+                "libtosprotection.x86.so"
+            ],
+            "通付盾": [
+                "libegis.so",
+                "libNSaferOnly.so"
+            ],
+            "网秦": [
+                "libnqshield.so"
+            ],
+            "网易易盾": [
+                "libnesec.so"
+            ],
+            "APKProtect": [
+                "libAPKProtect.so"
+            ],
+            "几维安全": [
+                "libkwslinker.so",
+                "libkwscmm.so",
+                "libkwscr.so"
+            ],
+            "顶像科技": [
+                "libx3g.so"
+            ],
+
+            "爱加密企业版": [
+                "ijiami.ajm"
+            ],
+
+            "盛大": [
+                "libapssec.so"
+            ],
+            "瑞星": [
+                "librsprotect.so"
+            ]
+        }
+        for filename in self.zip.namelist():
+            for k, v in shellfeatures.items():
+                for shell in v:
+                    if shell in filename:
+                        return k
+        return "Unknown"
 
     def _get_file_magic_name(self, buffer):
         """
